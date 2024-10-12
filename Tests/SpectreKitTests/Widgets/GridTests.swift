@@ -1,9 +1,9 @@
-import XCTest
+import Testing
 
 @testable import SpectreKit
 
-final class GridTests: XCTestCase {
-    func testRenderGrid () {
+struct GridTests {
+    @Test func renderGrid() {
         // Given
         let console = TestConsole()
         let grid = Grid()
@@ -17,15 +17,15 @@ final class GridTests: XCTestCase {
         let result = console.write(grid)
 
         // Then
-        XCTAssertEqual(
-            result,
+        #expect(
+            result == 
             "Foo   Bar     \n" +
             "              \n" +
             "Qux   Corgi   \n" +
             "              \n")
     }
 
-    func testRenderJustifiedGrid () {
+    @Test func renderJustifiedGrid() {
         // Given
         let console = TestConsole()
         let grid = Grid()
@@ -40,14 +40,14 @@ final class GridTests: XCTestCase {
         let result = console.write(grid)
 
         // Then
-        XCTAssertEqual(
-            result,
+        #expect(
+            result ==
             "   Foo    Bar     Baz     \n" +
             "   Qux   Corgi    Waldo   \n" +
             "Grault   Garply   Fred    \n")
     }
 
-    func testRenderPaddedGrid () {
+    @Test func renderPaddedGrid() {
         // Given
         let console = TestConsole()
         let grid = Grid()
@@ -62,8 +62,8 @@ final class GridTests: XCTestCase {
         let result = console.write(grid)
 
         // Then
-        XCTAssertEqual(
-            result,
+        #expect(
+            result ==
             "   Foo    Bar    Baz   \n" +
             "   Qux    Corgi  Waldo \n" +
             "   Grault Garply Fred  \n")
