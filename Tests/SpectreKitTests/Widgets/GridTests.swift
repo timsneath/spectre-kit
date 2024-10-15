@@ -18,11 +18,10 @@ struct GridTests {
 
         // Then
         #expect(
-            result == 
-            "Foo   Bar     \n" +
-            "              \n" +
-            "Qux   Corgi   \n" +
-            "              \n")
+            result == "Foo   Bar     \n" + 
+                      "              \n" + 
+                      "Qux   Corgi   \n" + 
+                      "              \n")
     }
 
     @Test func renderJustifiedGrid() {
@@ -41,10 +40,9 @@ struct GridTests {
 
         // Then
         #expect(
-            result ==
-            "   Foo    Bar     Baz     \n" +
-            "   Qux   Corgi    Waldo   \n" +
-            "Grault   Garply   Fred    \n")
+            result == "   Foo    Bar     Baz     \n" + 
+                      "   Qux   Corgi    Waldo   \n" + 
+                      "Grault   Garply   Fred    \n")
     }
 
     @Test func renderPaddedGrid() {
@@ -63,9 +61,44 @@ struct GridTests {
 
         // Then
         #expect(
-            result ==
-            "   Foo    Bar    Baz   \n" +
-            "   Qux    Corgi  Waldo \n" +
-            "   Grault Garply Fred  \n")
+            result == "   Foo    Bar    Baz   \n" + 
+                      "   Qux    Corgi  Waldo \n" + 
+                      "   Grault Garply Fred  \n")
+    }
+
+    @Test func renderColumnWithEmptyCells() {
+        // Given
+        let console = TestConsole()
+        let grid = Grid()
+        grid.addColumn(GridColumn().noWrap())
+        grid.addColumn(GridColumn().padLeft(2))
+        grid.addRow("Foo", "")
+        grid.addRow("", "Bar")
+
+        // When
+        let result = console.write(grid)
+
+        // Then
+        #expect(result == "Foo         \n" + 
+                          "        Bar \n")
+    }
+
+    @Test func renderColumnWithMissingCells() {
+        // Given
+        let console = TestConsole()
+        let grid = Grid()
+        grid.addColumn(GridColumn().noWrap())
+        grid.addColumn(GridColumn().padLeft(2))
+        grid.addRow("Options:")
+        grid.addRow("--help", "Prints help")
+        grid.addRow("--verbose", "Verbose mode")
+
+        // When
+        let result = console.write(grid)
+
+        // Then
+        #expect(result == "Options:               \n" + 
+                          "--help  Prints help    \n" + 
+                          "--verbose  Verbose mode\n")
     }
 }
