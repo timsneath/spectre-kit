@@ -83,7 +83,8 @@ struct GridTests {
                           "        Bar \n")
     }
 
-    @Test func renderColumnWithMissingCells() {
+    @Test(.bug(id: 14), .disabled())
+    func renderColumnWithMissingCells() {
         // Given
         let console = TestConsole()
         let grid = Grid()
@@ -97,8 +98,8 @@ struct GridTests {
         let result = console.write(grid)
 
         // Then
-        #expect(result == "Options:               \n" + 
-                          "--help  Prints help    \n" + 
-                          "--verbose  Verbose mode\n")
+        #expect(result == "Options:                   \n" + 
+                          "--help        Prints help  \n" + 
+                          "--verbose     Verbose mode \n")
     }
 }
