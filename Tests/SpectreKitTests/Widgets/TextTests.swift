@@ -3,7 +3,6 @@ import Testing
 @testable import SpectreKit
 
 struct TextTests {
-
     private static var returnCorrectNumberOfLinesTests = [
         ("Hello", 1),
         ("Hello\nWorld", 2),
